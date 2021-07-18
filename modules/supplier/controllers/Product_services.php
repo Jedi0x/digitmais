@@ -12,7 +12,7 @@ class Product_services extends ClientsController
         $this->load->model('currencies_model');
         $this->load->model('items_model');
 
-        // Junaid code here
+        // Task Pdf code here
         $this->load->model('service_model');
     }
 
@@ -141,7 +141,7 @@ class Product_services extends ClientsController
     }
 
 
-    // Junaid code here
+    // Task Pdf code here
 
     public function manage_service($service = false)
     {

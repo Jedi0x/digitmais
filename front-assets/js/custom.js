@@ -1,7 +1,7 @@
 
 	
 
-	    // Junaid code her
+	    // Task Pdf code her
     $('body').on('click', '#buy_offer', function() {
         var service_id = $(this).data('offer');
 

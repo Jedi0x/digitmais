@@ -1,7 +1,10 @@
 <?php defined('BASEPATH') or exit('No direct script access allowed'); ?>
 <div class="panel_s section-heading section-projects">
    <div class="panel-body">
-      <h4 class="no-margin section-text"><?php echo _l('clients_my_projects'); ?></h4>
+
+      <!-- Task Pdf code here -->
+      <h4 class="no-margin section-text"><?php echo _l('clients_my_projects'); ?> <a href="#" style="float: right;" onclick="print_task_pdf(); return false;" class="btn btn-info mleft10"><?php echo _l('print'); ?></a></h4>
+
    </div>
 </div>
 <div class="panel_s">
@@ -61,3 +64,7 @@
          </table>
    </div>
 </div>
+
+<!-- Task Pdf code here -->
+
+<div id="_task"></div>

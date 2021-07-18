@@ -46,6 +46,10 @@ foreach ($task_ids as $key => $task) {
 
 	$barcode = base_url('uploads/barcode/'.$barcodename.'.png');
 	$qr_code_path = base_url('uploads/taskpdf/digitmaisqr.png');
+
+
+	if($type == 'admin'){
+
 	$section_one ='<style>p{ font-size:12px; }</style>';
 	$section_one .= '<table border="2" width="100%" style="padding-top:5px;" >
 
@@ -318,6 +322,109 @@ foreach ($task_ids as $key => $task) {
 
 
 	$pdf->writeHTML($section_two, false, false, false, false, '');
+
+}else{
+
+	// client side code
+
+	$printed_section = '
+<div height="420px" style="margin-top:12px;">
+	<table width="100%">
+					<tr>
+						<td width="25%" align="left"><img src="'.$qr_code_path.'" width="90px;"></td>
+						<td width="50%" align="center"><p><br>'.pdf_logo_url_updated(250,'style="vertical-align: middle;text-align:center;"').'</p></td>
+						<td width="25%" align="right"><img src="'.$qr_code_path.'" width="90px;"></td>
+					</tr>
+				</table>
+
+				<table width="100%">
+					<tr>
+						<td style="background-color: black; color:white; vertical-align:middle; text-align:center; height:30px;width: 100%;line-height: 30px">SMART CODE</td>
+					</tr>
+				</table>
+
+				<table style="padding-bottom:10px; border-bottom:2px solid #000;width: 100%;padding-left: 0px;padding-right: 0px;">
+					<tr>
+						<td><p><b>'.$customFieldsData['tasks_local_de_carga_contato']['name'].'</b><br>'.$customFieldsData['tasks_local_de_carga_contato']['val'].'</p></td>
+						<td align="right">
+						<p><b>'.$customFieldsData['tasks_tel_contato_carga']['name'].'</b><br>'.$customFieldsData['tasks_tel_contato_carga']['val'].'</p>
+						</td>
+					</tr>
+					<tr>
+						<td width="50%" align="right"></td>
+						<td width="50%" align="right"><p><b>'._l('project_discussion_subject').'</b><br>'.$task->name.'</p></td>
+					</tr>
+				</table>
+
+				<table style="padding-bottom:40px; border-bottom:2px solid #000;width: 100%;padding-left: 0px;padding-right: 0px;">
+					<tr>
+						<td><p><b>'.$customFieldsData['tasks_destinatario']['name'].'</b><br>'.$customFieldsData['tasks_destinatario']['val'].'</p></td>
+						<td  align="right"><p><b>'.$customFieldsData['tasks_tel_contato_da_entrega']['name'].'</b><br>'.$customFieldsData['tasks_tel_contato_da_entrega']['val'].'</p></td>
+					</tr>
+				</table>
+
+				<table style="padding-top:60px;width: 100%;padding-left: 0px;padding-right: 0px;">
+					<tr>
+						<td><img src="'.$barcode.'" ></td>
+					</tr>
+				</table>
+
+				<table width="100%">
+					<tr>
+						<td style="background-color: #000; color:white; vertical-align:middle; text-align:center; height:20px;line-height: 20px;">24H</td>
+					</tr>
+				</table>
+
+				<table width="100%">
+					<tr>
+						<td style="text-align:center; border-bottom:2px solid #000;"><b style="color:black" class="company-name-formatted">' . get_option('invoice_company_name') . '</b></td>
+					</tr>
+				</table>
+</div>
+
+	';
+
+	$zones_section ='
+	<style>p{ font-size:12px; }</style>
+	<table width="100%" style="padding-top:5px;">';
+
+
+	$zones_section .='<tr>';
+        
+        
+        $zones_section .='<td width="50%">';
+        if(in_array(1, $zones)){
+            $zones_section .= $printed_section;
+        }
+        $zones_section .='</td>';
+
+
+        $zones_section .='<td width="50%">';
+        if(in_array(2, $zones)){
+            $zones_section .= $printed_section;
+        }
+        $zones_section .='</td></tr><tr>';
+
+
+        $zones_section .='<td width="50%">';
+        if(in_array(3, $zones)){
+            $zones_section .= $printed_section;
+        }
+        $zones_section .='</td>';
+
+
+        $zones_section .='<td width="50%">';
+        if(in_array(4, $zones)){
+            $zones_section .= $printed_section;
+        }
+        $zones_section .='</td></tr>';
+
+
+	$zones_section .='</table>';
+	
+
+	$pdf->writeHTML($zones_section, false, false, false, false, '');
+}
 
       
 	$pdf->AddPage();

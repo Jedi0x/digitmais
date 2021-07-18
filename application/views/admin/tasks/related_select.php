@@ -7,7 +7,9 @@
 				echo '<option value="" selected>Please Select</option>';
 			}else{
 				echo '<option value="" selected>Please Select</option>';
-				echo '<option value="select_all">Select All</option>';
+				
+					echo '<option value="select_all">Select All</option>';
+				
 				foreach ($select_options as $key => $select_option) {
 				 echo '<option value="'.$select_option['id'].'">'.$select_option['name'].'</option>';
 				}

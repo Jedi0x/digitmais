@@ -15,7 +15,7 @@
                            <?php if($switch_kanban == 1){ echo _l('switch_to_list_view');}else{echo _l('leads_switch_to_kanban');}; ?>
                         </a>
 
-                        <!-- Junaid code here -->
+                        <!-- Task Pdf code here -->
 
 
                         <a href="#" onclick="print_task_pdf(); return false;" class="btn btn-info mleft10"><?php echo _l('print'); ?></a>

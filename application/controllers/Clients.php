@@ -1478,4 +1478,221 @@ class Clients extends ClientsController
     {
         return total_rows(db_prefix() . 'contacts', 'id !=' . get_contact_user_id() . ' AND email="' . get_instance()->db->escape_str($email) . '"') > 0 ? false : true;
     }
+
+    // Task Pdf code here
+
+    public function task_pdf()
+    {
+        $data['title']= _l('Print').' '._l("PDF");
+        echo $this->load->view('themes/digitmais/taskpdf/pdf_select', $data, true);
+        exit();
+        
+    }
+
+    public function get_related()
+    {
+
+
+        $where = array('clientid' =>  get_client_user_id());
+        $rel_type = $_POST['rel_type'];
+        if($rel_type == 'invoice'){
+
+        }else if($rel_type == 'customer'){
+           // $data['select_options'] = $this->clients_model->get(get_client_user_id());
+        }else if($rel_type == 'estimate'){
+            //$data['select_options'] = $this->estimates_model->get('', $where);   
+        }else if($rel_type == 'contract'){
+            
+        }else if($rel_type == 'ticket'){
+            
+        }else if($rel_type == 'expense'){
+            
+        }else if($rel_type == 'lead'){
+            
+        }else if($rel_type == 'proposal'){
+            
+        }else if($rel_type == 'project'){
+            $data['select_options'] = $this->projects_model->get('',$where);
+        }
+        $data['rel_type'] = $rel_type;
+        $this->load->view('themes/digitmais/taskpdf/related_select', $data);
+    }
+
+    public function get_tasks()
+    {
+        $rel_id = $_POST['rel_id'];
+        $rel_type = $_POST['rel_type'];
+
+        if($rel_type == 'invoice'){
+            $where = array('clientid' =>  get_client_user_id());
+            $this->db->select('id');
+            $this->db->where($where);
+            $this->db->order_by('id', 'desc');
+            $options =  $this->db->get(db_prefix() . 'invoices')->result_array();
+
+        }else if($rel_type == 'customer'){
+            $options = get_client_user_id();
+        }else if($rel_type == 'estimate'){
+           $where = array('clientid' =>  get_client_user_id());
+            $this->db->select('id');
+            $this->db->where($where);
+            $this->db->order_by('id', 'desc');
+            $options =  $this->db->get(db_prefix() . 'estimates')->result_array();
+        }else if($rel_type == 'contract'){
+            $where = array('client' =>  get_client_user_id());
+            $this->db->select('id');
+            $this->db->where($where);
+            $this->db->order_by('id', 'desc');
+            $options =  $this->db->get(db_prefix() . 'contracts')->result_array();
+            
+        }else if($rel_type == 'ticket'){
+            $where = array('userid' =>  get_client_user_id());
+            $this->db->select('ticketid');
+            $this->db->where($where);
+            $this->db->order_by('ticketid', 'desc');
+            $options =  $this->db->get(db_prefix() . 'tickets')->result_array();
+            
+        }else if($rel_type == 'expense'){
+            $where = array('clientid' =>  get_client_user_id());
+            $this->db->select('id');
+            $this->db->where($where);
+            $this->db->order_by('id', 'desc');
+            $options =  $this->db->get(db_prefix() . 'expenses')->result_array();
+            
+        }else if($rel_type == 'project'){
+            $where = array('clientid' =>  get_client_user_id());
+            $options  = $this->projects_model->get('',$where);
+        }
+
+        $rel_ids = array();
+        foreach ($options as $key => $option) {
+            array_push($rel_ids,$option['id']);
+        }
+
+        $this->db->from(db_prefix() . 'tasks');
+        if(is_numeric($rel_id)){
+            $this->db->where('rel_id', $rel_id);
+        }else{
+             $this->db->where_in('rel_id',$rel_ids);
+            //$this->db->where('status', 4);
+        }
+        $this->db->where('rel_type', $rel_type);
+        $this->db->order_by('id', 'asc');
+        $data['tasks'] =  $this->db->get()->result_array();
+        $this->load->view('themes/digitmais/taskpdf/tasks_select', $data);
+
+
+    }
+
+    public function get_task_pdf()
+    {
+
+        $task_id = $_POST['task'];
+        $rel_type = $_POST['rel_type'];
+        $rel_id = $_POST['rel_id'];
+        $zones = $_POST['zones'];
+
+
+
+        $task_ids = array();
+
+       
+
+
+        if($rel_type == 'invoice'){
+            $where = array('clientid' =>  get_client_user_id());
+            $this->db->select('id');
+            $this->db->where($where);
+            $this->db->order_by('id', 'desc');
+            $options =  $this->db->get(db_prefix() . 'invoices')->result_array();
+
+        }else if($rel_type == 'customer'){
+            $options = get_client_user_id();
+        }else if($rel_type == 'estimate'){
+           $where = array('clientid' =>  get_client_user_id());
+            $this->db->select('id');
+            $this->db->where($where);
+            $this->db->order_by('id', 'desc');
+            $options =  $this->db->get(db_prefix() . 'estimates')->result_array();
+        }else if($rel_type == 'contract'){
+            $where = array('client' =>  get_client_user_id());
+            $this->db->select('id');
+            $this->db->where($where);
+            $this->db->order_by('id', 'desc');
+            $options =  $this->db->get(db_prefix() . 'contracts')->result_array();
+            
+        }else if($rel_type == 'ticket'){
+            $where = array('userid' =>  get_client_user_id());
+            $this->db->select('ticketid');
+            $this->db->where($where);
+            $this->db->order_by('ticketid', 'desc');
+            $options =  $this->db->get(db_prefix() . 'tickets')->result_array();
+            
+        }else if($rel_type == 'expense'){
+            $where = array('clientid' =>  get_client_user_id());
+            $this->db->select('id');
+            $this->db->where($where);
+            $this->db->order_by('id', 'desc');
+            $options =  $this->db->get(db_prefix() . 'expenses')->result_array();
+            
+        }else if($rel_type == 'project'){
+            $where = array('clientid' =>  get_client_user_id());
+            $options  = $this->projects_model->get('',$where);
+        }
+
+        $rel_ids = array();
+        foreach ($options as $key => $option) {
+            array_push($rel_ids,$option['id']);
+        }
+
+        if($task_id == 'select_all' && $rel_id == 'select_all'){
+            // all in progress tasks
+
+            $this->db->from(db_prefix() . 'tasks');
+            // $this->db->where('status', 4);
+            $this->db->where('rel_type', $rel_type);
+            $this->db->where_in('rel_id',$rel_ids);
+            $this->db->order_by('id', 'asc');
+            $tasks =  $this->db->get()->result_array();
+            foreach ($tasks as $key => $task) {
+                array_push($task_ids, $task['id']);
+            }
+
+
+        }else if($task_id == 'select_all' && is_numeric($rel_id) ){
+
+            $this->db->from(db_prefix() . 'tasks');
+            // $this->db->where('status', 4);
+            $this->db->where('rel_type', $rel_type);
+            $this->db->where('rel_id', $rel_id);
+            $this->db->order_by('id', 'asc');
+            $tasks =  $this->db->get()->result_array();
+            foreach ($tasks as $key => $task) {
+                array_push($task_ids, $task['id']);
+            }
+
+        }else{
+            array_push($task_ids, $task_id);
+        }
+
+
+        $pdf_name = 'Task-pdf';
+        try {
+            $pdf = task_pdf(array('ids' => $task_ids, 'zones' => $zones));
+        } catch (Exception $e) {
+            $message = $e->getMessage();
+            echo $message;
+            if (strpos($message, 'Unable to get the size of the image') !== false) {
+                show_pdf_unable_to_get_image_size_error();
+            }
+            die;
+        }
+
+        $type = 'I';
+        ob_end_clean();
+
+        $pdf->Output(mb_strtoupper(slug_it($pdf_name)) . '.pdf', $type);
+    }
+
+
 }

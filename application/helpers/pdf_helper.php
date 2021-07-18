@@ -74,7 +74,7 @@ function pdf_logo_url()
 }
 
 
-// Junaid code here
+// Task Pdf code here
 
 function pdf_logo_url_updated($width,$style='')
 {
@@ -185,7 +185,7 @@ function invoice_pdf($invoice, $tag = '')
 }
 
 
-// Junaid code here
+// Task Pdf code here
 
 /**
  * Prepare general tasks pdf

@@ -1,5 +1,5 @@
 <?php
-// Junaid code here
+// Task Pdf code here
 defined('BASEPATH') or exit('No direct script access allowed');
 
 include_once(__DIR__ . '/App_pdf.php');
@@ -12,7 +12,6 @@ class Task_pdf extends App_pdf
 
     public function __construct($task_ids, $tag = '')
     {
-        //$this->load_language($task->project_data->client_data->userid);
         $task_ids                = hooks()->apply_filters('task_html_pdf_data', $task_ids);
         $GLOBALS['task_pdf'] = $task_ids;
 
@@ -32,11 +31,18 @@ class Task_pdf extends App_pdf
     {
         // $this->with_number_to_word($this->task->clientid);
 
+        if(is_client_logged_in()){
+            $type = 'client';
+        }else{
+            $type = 'admin';
+        }
         $this->set_view_vars([
             'status'         => 1,
             'tasks' => array(),
             'payment_modes'  =>  array(),
-            'task_ids'        =>  $this->task_ids,
+            'type' => $type,
+            'task_ids'        =>  $this->task_ids['ids'],
+            'zones' => isset($this->task_ids['zones']) ? $this->task_ids['zones'] : '',
         ]);
 
         return $this->build();

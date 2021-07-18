@@ -1326,17 +1326,9 @@ class Tasks extends AdminController
         }
 
 
-        // foreach ($task_ids as $key => $value) {
-        //    if($key < sizeof($task_ids) -1 ){
-        //     echo $key.'<br>';
-        //    }
-        // }
-
-        // exit;
-
         $pdf_name = 'Task-pdf';
         try {
-            $pdf = task_pdf($task_ids);
+            $pdf = task_pdf(array('ids' => $task_ids, 'zones' => array()));
         } catch (Exception $e) {
             $message = $e->getMessage();
             echo $message;

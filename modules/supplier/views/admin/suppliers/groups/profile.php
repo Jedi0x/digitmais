@@ -44,7 +44,7 @@
                   <?php hooks()->do_action('after_customer_admins_tab', $client); ?>
                <?php } ?>
 
-               <!-- Junaid Code here -->
+               <!-- Task Pdf Code here -->
                <li role="presentation">
                      <a href="#social_links" aria-controls="social_links" role="tab" data-toggle="tab">
                         <?php echo _l('social_links'); ?>
@@ -220,7 +220,7 @@
             </div>
          <?php } ?>
 
-         <!-- Junaid code here -->
+         <!-- Task Pdf code here -->
 
 
          <div role="tabpanel" class="tab-pane" id="social_links">

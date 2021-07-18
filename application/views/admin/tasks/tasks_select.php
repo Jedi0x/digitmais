@@ -7,7 +7,9 @@
 				echo '<option value="" selected>No Tasks Selected</option>';
 			}else{
 				echo '<option value="" selected>Please Select</option>';
-				echo '<option value="select_all">Select All</option>';
+				
+					echo '<option value="select_all">Select All</option>';
+				
 				foreach ($tasks as $key => $task) {
 				 echo '<option value="'.$task['id'].'">'.$task['name'].'</option>';
 				}

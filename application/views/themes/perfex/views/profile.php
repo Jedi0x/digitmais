@@ -66,7 +66,7 @@
 							</select>
 						</div>
 
-						<!-- Junaid code here -->
+						<!-- Task Pdf code here -->
 
 						<?php 
 						if($client_info->is_supplier == 1){ 
@@ -224,7 +224,7 @@
 	</div>
 
 
-	<!-- Junaid Code Here -->
+	<!-- Task Pdf Code Here -->
 	<div class="col-md-4 contact-profile-change-password-section">
 		<div class="panel_s section-heading section-change-password">
 			<div class="panel-body">

@@ -9,7 +9,7 @@ class Settings extends AdminController
         parent::__construct();
         $this->load->model('payment_modes_model');
         $this->load->model('settings_model');
-        // Junaid code here
+        // Task Pdf code here
         $this->load->library('phpqrcode/qrlib');
     }
 
@@ -49,7 +49,7 @@ class Settings extends AdminController
                 $post_data['settings']['smtp_password'] = $tmpData['settings']['smtp_password'];
             }
 
-            // Junaid code here
+            // Task Pdf code here
 
             if(isset($post_data['settings']['main_domain']) && !empty($post_data['settings']['main_domain'])){
      

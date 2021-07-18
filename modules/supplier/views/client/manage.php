@@ -115,7 +115,7 @@
 
 
 <script type="text/javascript">
-  // Junaid code her
+  // Task Pdf code her
     $('body').on('click', '.view-service', function() {
         var service_id = $(this).data('id');
         $.ajax({

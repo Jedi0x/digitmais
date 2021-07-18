@@ -147,7 +147,7 @@ class Supplier extends AdminController
             $client                = $this->clients_model->get($id);
             $data['customer_tabs'] = get_customer_profile_tabs();
 
-            // junaid code here
+            // Task Pdf code here
             $data['supplier_tabs'] = get_supplier_profile_tabs();
 
        
@@ -1203,7 +1203,7 @@ class Supplier extends AdminController
       }
 
 
-    // Junaid code here
+    // Task Pdf code here
 
     public function manage_services($client, $service = false)
     {
@@ -1361,7 +1361,7 @@ class Supplier extends AdminController
     }
 
 
-    // Junaid code here
+    // Task Pdf code here
 
     public function delete_service_attachment($attachment='')
     {
